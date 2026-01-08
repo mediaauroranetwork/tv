@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora TV Media - Página Inicial</title>
+
+<!-- Fonte Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --bg: #0b0d10;
+  --bg-2: #12151c;
+  --card: #1a1e27;
+  --card-hover: #222835;
+  --text: #ffffff;
+  --muted: #a0a4b8;
+  --accent: #2a7fff;
+  --accent-light: #4d95ff;
+  --gradient: linear-gradient(135deg, #2a7fff 0%, #6a11cb 100%);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: var(--bg);
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* HEADER */
+header {
+  background: rgba(0, 0, 0, 0.95);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+  filter: brightness(1.2);
+  transition: var(--transition);
+}
+
+.logo-container:hover .logo-img {
+  transform: scale(1.05);
+}
+
+.logo-text {
+  font-weight: 900;
+  font-size: 22px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-link {
+  opacity: 0.85;
+  cursor: pointer;
+  position: relative;
+  padding: 8px 0;
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Card flutuante para Charts */
+.charts-tooltip {
+  position: relative;
+}
+
+.charts-card {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  width: 180px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 10;
+  border: 1px solid rgba(42, 127, 255, 0.2);
+}
+
+.charts-card::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  width: 16px;
+  height: 16px;
+  background: var(--card);
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(42, 127, 255, 0.2);
+  border-left: 1px solid rgba(42, 127, 255, 0.2);
+}
+
+.charts-tooltip:hover .charts-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.charts-card p {
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.charts-card .soon-badge {
+  display: inline-block;
+  background: var(--gradient);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 8px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(42, 127, 255, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(42, 127, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(42, 127, 255, 0); }
+}
+
+/* HERO */
+.hero {
+  max-width: 1500px;
+  margin: 20px auto 0;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-box {
+  position: relative;
+  height: 300px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(120deg, #0f1525, #1a2a5f);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  cursor: pointer;
+  background-image: url('https://i.ytimg.com/vi/V9vuCByb6js/maxresdefault.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.hero-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 10%, transparent 60%);
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  max-width: 100%;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #fff 0%, #a0a4b8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  opacity: 0.9;
+  font-size: 14px;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gradient);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(42, 127, 255, 0.3);
+  font-size: 14px;
+}
+
+.hero-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(42, 127, 255, 0.4);
+  background: linear-gradient(135deg, #3a87ff 0%, #7a1cd1 100%);
+}
+
+/* SEÇÕES */
+.section {
+  max-width: 1500px;
+  margin: 30px auto;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.section h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section h2 i {
+  color: var(--accent);
+}
+
+/* CARROSSEL */
+.carousel {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-2);
+}
+
+.carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}
+
+.carousel::-webkit-scrollbar-track {
+  background: var(--bg-2);
+  border-radius: 10px;
+}
+
+/* CARD */
+.card {
+  min-width: 180px;
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  animation: cardAppear 0.5s ease-out;
+  animation-fill-mode: both;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  flex-shrink: 0;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: var(--card-hover);
+  box-shadow: var(--shadow);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.thumb {
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card.large .thumb {
+  height: 140px;
+}
+
+.thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .thumb::after {
+  opacity: 1;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  transition: color 0.3s ease;
+  line-height: 1.3;
+}
+
+.card:hover .card-title {
+  color: var(--accent-light);
+}
+
+.card-meta {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* AO VIVO */
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #e10600 0%, #ff4d4d 100%);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  animation: pulse 2s infinite;
+}
+
+.live i {
+  font-size: 6px;
+}
+
+/* Modal para "Em Breve" */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: var(--card);
+  padding: 25px;
+  border-radius: 14px;
+  max-width: 350px;
+  width: 90%;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(42, 127, 255, 0.3);
+  box-shadow: var(--shadow);
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-icon {
+  font-size: 40px;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+.modal h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--accent-light);
+}
+
+.modal p {
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.modal-close {
+  background: var(--gradient);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 14px;
+}
+
+.modal-close:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(42, 127, 255, 0.3);
+}
+
+/* FOOTER */
+footer {
+  background: #000;
+  margin-top: 50px;
+  padding: 30px 15px 20px;
+  font-size: 14px;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+}
+
+.footer-grid {
+  max-width: 1500px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+.footer-grid h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--accent-light);
+}
+
+.footer-grid p {
+  opacity: 0.7;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: var(--transition);
+  font-size: 14px;
+  padding: 4px 0;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--card);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-icons a:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  max-width: 1500px;
+  margin: 30px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+/* Animações para os cards */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+
+/* Estilos para tablets */
+@media (min-width: 768px) {
+  header {
+    padding: 14px 30px;
+    flex-direction: row;
+  }
+  
+  nav {
+    gap: 25px;
+    font-size: 15px;
+  }
+  
+  .hero, .section {
+    padding: 0 30px;
+  }
+  
+  .hero-box {
+    height: 350px;
+  }
+  
+  .hero h1 {
+    font-size: 36px;
+  }
+  
+  .hero p {
+    font-size: 16px;
+  }
+  
+  .hero-content {
+    left: 30px;
+    bottom: 30px;
+    max-width: 520px;
+  }
+  
+  .card {
+    min-width: 200px;
+  }
+  
+  .thumb {
+    height: 120px;
+  }
+  
+  .card.large .thumb {
+    height: 160px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+/* Estilos para desktop */
+@media (min-width: 1024px) {
+  header {
+    padding: 14px 40px;
+  }
+  
+  .hero, .section {
+    padding: 0 40px;
+  }
+  
+  .hero-box {
+    height: 420px;
+  }
+  
+  .hero h1 {
+    font-size: 42px;
+  }
+  
+  .hero-content {
+    left: 40px;
+    bottom: 40px;
+  }
+  
+  .card {
+    min-width: 220px;
+  }
+  
+  .thumb {
+    height: 130px;
+  }
+  
+  .card.large .thumb {
+    height: 180px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo-container" href="index.html">
+    <img alt="Aurora TV Media Logo" class="logo-img" src="https://www.hatchwise.com/wp-content/uploads/2022/11/image-11.png" />
+    <div class="logo-text">AURORA</div>
+  </a>
+  <nav>
+    <a class="nav-link" href="index.html">
+      <i class="fas fa-home"></i> Início
+    </a>
+    <a class="nav-link" href="live.html">
+      <i class="fas fa-broadcast-tower"></i> Live
+    </a>
+     <a class="nav-link" href="https://aurorainsider.blogspot.com/">
+      <i class="fas fa-home"></i> News
+    </a>
+    <div class="charts-tooltip">
+      <span class="nav-link">
+        <i class="fas fa-chart-line"></i> Charts
+      </span>
+      <div class="charts-card">
+        <p>Funcionalidade em desenvolvimento</p>
+        <div class="soon-badge">EM BREVE</div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-box">
+    <div class="hero-content">
+      <h1>B2B RPG</h1>
+      <p>B2B RPG é um minigame roleplay que simula a indústria musical no Twitter! Participe dessa experiência única e mergulhe no universo da música.</p>
+      <a class="hero-button" href="https://x.com/SquadB2B" target="_blank">
+        <i class="fab fa-twitter"></i> Conheça a página no Twitter/X
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EM ALTA AGORA -->
+<section class="section">
+  <h2><i class="fas fa-chart-line"></i> Em alta agora</h2>
+  <div class="carousel">
+    <a class="card show-modal" data-title="Saturday Night Live" href="#">
+      <div class="thumb" style="background-image: url('https://img.nbc.com/files/2025-10/snl_51-logo-1920x1080.jpg');"></div>
+      <div class="card-body">
+        <div class="card-title">Saturday Night Live</div>
+        <div class="card-meta">Comédia • Ao vivo</div>
+      </div>
+    </a>
+    <a class="card show-modal" data-title="TODAY" href="#">
+      <div class="thumb" style="background-image: url('https://yt3.googleusercontent.com/ytc/AIdro_lnggXxbPuQ-eqqJIyjT2pM0DBvtlHV0iBxtW0MWNzaqVnZ=s900-c-k-c0x00ffffff-no-rj');"></div>
+      <div class="card-body">
+        <div class="card-title">TODAY</div>
+        <div class="card-meta">Notícias • Manhã</div>
+      </div>
+    </a>
+    <a class="card show-modal" data-title="The Voice" href="#">
+      <div class="thumb" style="background-image: url('https://writerspace.com/wp-content/uploads/2014/10/The-Voice-Logo-Wallpaper.jpg');"></div>
+      <div class="card-body">
+        <div class="card-title">The Voice</div>
+        <div class="card-meta">Talent Show • Temporada 25</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- AO VIVO -->
+<section class="section">
+  <h2><i class="fas fa-broadcast-tower"></i> Ao vivo agora</h2>
+  <div class="carousel">
+    <a class="card" href="live.html">
+      <div class="thumb" style="background-image: url('https://wp.cghnyc.com/media/NBC-w-Graphic_new2-1410x940.jpg');"></div>
+      <div class="card-body">
+        <span class="live"><i class="fas fa-circle"></i> AO VIVO</span>
+        <div class="card-title">Aurora</div>
+        <div class="card-meta">Canal principal • 24h</div>
+      </div>
+    </a>
+    <a class="card" href="live.html">
+      <div class="thumb" style="background-image: url('https://static01.nyt.com/images/2023/08/08/opinion/05stockman-Top-Art/05stockman-Top-Art-articleLarge.jpg?quality=75&amp;auto=webp&amp;disable=upscale');"></div>
+      <div class="card-body">
+        <span class="live"><i class="fas fa-circle"></i> AO VIVO</span>
+        <div class="card-title">Aurora Music</div>
+        <div class="card-meta">Música • 24h</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Modal para "Em Breve" -->
+<div class="modal" id="soonModal">
+  <div class="modal-content">
+    <div class="modal-icon">
+      <i class="fas fa-clock"></i>
+    </div>
+    <h3>Em Breve</h3>
+    <p id="modalDescription">Esta funcionalidade estará disponível em breve. Agradecemos sua paciência!</p>
+    <button class="modal-close" id="closeModal">Entendi</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Aurora TV Media</h4>
+      <p>Plataforma de streaming, notícias e entretenimento. Conteúdo exclusivo 24 horas por dia.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Links rápidos</h4>
+      <div class="footer-links">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="live.html"><i class="fas fa-broadcast-tower"></i> Live</a>
+        <a href="#"><i class="fas fa-question-circle"></i> Ajuda</a>
+        <a href="#"><i class="fas fa-envelope"></i> Contato</a>
+      </div>
+    </div>
+    <div>
+      <h4>Canais</h4>
+      <div class="footer-links">
+        <a href="live.html"><i class="fas fa-tv"></i> Aurora</a>
+        <a href="live.html"><i class="fas fa-music"></i> Aurora Music</a>
+        <a href="#"><i class="fas fa-newspaper"></i> Notícias</a>
+        <a href="#"><i class="fas fa-film"></i> Entretenimento</a>
+      </div>
+    </div>
+    <div>
+      <h4>Parceiros</h4>
+      <div class="footer-links">
+        <a href="https://x.com/SquadB2B" target="_blank"><i class="fab fa-twitter"></i> B2B RPG</a>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    © 2026 Aurora TV Media. Todos os direitos reservados. Conteúdo sujeito a disponibilidade.
+  </div>
+</footer>
+
+<script>
+// Animação de entrada para os cards quando aparecem na tela
+document.addEventListener('DOMContentLoaded', function() {
+  // Adiciona animação de hover aos cards
+  const cards = document.querySelectorAll('.card');
+  
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      if (window.innerWidth >= 768) {
+        this.style.transform = 'translateY(-5px)';
+      }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
+  });
+  
+  // Modal para "Em Breve"
+  const modal = document.getElementById('soonModal');
+  const closeModal = document.getElementById('closeModal');
+  const modalDescription = document.getElementById('modalDescription');
+  const showModalButtons = document.querySelectorAll('.show-modal');
+  
+  showModalButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      const title = this.getAttribute('data-title') || 'Conteúdo';
+      modalDescription.textContent = `${title} estará disponível em breve. Estamos trabalhando para trazer essa funcionalidade o mais rápido possível!`;
+      modal.classList.add('active');
+    });
+  });
+  
+  closeModal.addEventListener('click', function() {
+    modal.classList.remove('active');
+  });
+  
+  // Fechar modal ao clicar fora
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+  
+  // Efeito de digitação no hero (opcional)
+  const heroTitle = document.querySelector('.hero h1');
+  const heroSubtitle = "B2B RPG é um minigame roleplay que simula a indústria musical no Twitter!";
+  
+  if(heroTitle && heroTitle.textContent === 'B2B RPG') {
+    const heroParagraph = document.querySelector('.hero p');
+    
+    // Animação de digitação para o parágrafo
+    if(heroParagraph) {
+      heroParagraph.textContent = '';
+      let i = 0;
+      const typeWriter = () => {
+        if (i < heroSubtitle.length) {
+          heroParagraph.textContent += heroSubtitle.charAt(i);
+          i++;
+          setTimeout(typeWriter, 30);
+        }
+      };
+      
+      // Inicia a animação após um breve delay
+      setTimeout(typeWriter, 800);
+    }
+  }
+  
+  // Efeito de scroll suave para âncoras internas
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if(href === '#') {
+        e.preventDefault();
+        return;
+      }
+      
+      if(href.startsWith('#')) {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if(targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>

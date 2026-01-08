@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aurora TV Media - Live</title>
+
+<!-- Fonte Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --bg: #0b0d10;
+  --bg-2: #12151c;
+  --card: #1a1e27;
+  --card-hover: #222835;
+  --text: #ffffff;
+  --muted: #a0a4b8;
+  --accent: #2a7fff;
+  --accent-light: #4d95ff;
+  --gradient: linear-gradient(135deg, #2a7fff 0%, #6a11cb 100%);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --live-gradient: linear-gradient(135deg, #e10600 0%, #ff4d4d 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: var(--bg);
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* HEADER */
+header {
+  background: rgba(0, 0, 0, 0.95);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+  filter: brightness(1.2);
+  transition: var(--transition);
+}
+
+.logo-container:hover .logo-img {
+  transform: scale(1.05);
+}
+
+.logo-text {
+  font-weight: 900;
+  font-size: 22px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-link {
+  opacity: 0.85;
+  cursor: pointer;
+  position: relative;
+  padding: 8px 0;
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Card flutuante para Charts */
+.charts-tooltip {
+  position: relative;
+}
+
+.charts-card {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  width: 180px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 10;
+  border: 1px solid rgba(42, 127, 255, 0.2);
+}
+
+.charts-card::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  width: 16px;
+  height: 16px;
+  background: var(--card);
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(42, 127, 255, 0.2);
+  border-left: 1px solid rgba(42, 127, 255, 0.2);
+}
+
+.charts-tooltip:hover .charts-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.charts-card p {
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.charts-card .soon-badge {
+  display: inline-block;
+  background: var(--gradient);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 8px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(42, 127, 255, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(42, 127, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(42, 127, 255, 0); }
+}
+
+/* PLAYER SECTION */
+.player-section {
+  max-width: 1500px;
+  margin: 20px auto 0;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.player-container {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #000;
+  transition: var(--transition);
+}
+
+.player-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.player-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+#playerFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.player-info {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 12px 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 5;
+  animation: slideInLeft 0.5s ease-out 0.5s both;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.player-info.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.player-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--live-gradient);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  animation: livePulse 2s infinite;
+}
+
+@keyframes livePulse {
+  0% { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(225, 6, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0); }
+}
+
+.player-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.player-description {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* CHANNELS SECTION */
+.channels-section {
+  max-width: 1500px;
+  margin: 30px auto;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title i {
+  color: var(--accent);
+}
+
+.current-time {
+  font-size: 13px;
+  color: var(--muted);
+  background: var(--card);
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+}
+
+/* GRID DE PROGRAMAÇÃO */
+.schedule-grid {
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(42, 127, 255, 0.1);
+  box-shadow: var(--shadow);
+  animation: gridAppear 0.6s ease-out 0.6s both;
+  background: var(--bg-2);
+}
+
+@keyframes gridAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.time-header, .time-slot {
+  display: none;
+}
+
+.channel-cell {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--card);
+  border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.channel-cell:last-child {
+  border-bottom: none;
+}
+
+.channel-cell:hover {
+  background: var(--card-hover);
+}
+
+.channel-cell.active {
+  background: rgba(42, 127, 255, 0.1);
+}
+
+.channel-cell.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gradient);
+}
+
+.channel-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #fff;
+  padding: 6px;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.channel-cell:hover .channel-logo {
+  transform: scale(1.1);
+}
+
+.channel-info {
+  flex: 1;
+}
+
+.channel-name {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.channel-description {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.channel-programs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  background: var(--bg-2);
+  border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+}
+
+.channel-programs:last-child {
+  border-bottom: none;
+}
+
+.program-cell {
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--card);
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.program-cell:hover {
+  background: var(--card-hover);
+  transform: translateY(-2px);
+}
+
+.program-cell.live-now {
+  background: rgba(225, 6, 0, 0.1);
+  border-left: 4px solid #e10600;
+}
+
+.program-cell.live-now::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--live-gradient);
+}
+
+.program-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.program-time {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--live-gradient);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-top: 6px;
+}
+
+/* OTHER CHANNELS SECTION */
+.other-channels {
+  max-width: 1500px;
+  margin: 40px auto 30px;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+}
+
+.channels-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.channel-card {
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+  border: 1px solid rgba(42, 127, 255, 0.1);
+}
+
+.channel-card:hover {
+  transform: translateY(-5px);
+  background: var(--card-hover);
+  box-shadow: var(--shadow);
+  border-color: rgba(42, 127, 255, 0.3);
+}
+
+.channel-card-header {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+}
+
+.channel-card-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #fff;
+  padding: 6px;
+  flex-shrink: 0;
+}
+
+.channel-card-info {
+  flex: 1;
+}
+
+.channel-card-name {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.channel-card-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.channel-card-body {
+  padding: 15px;
+}
+
+.channel-card-description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.channel-card-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(42, 127, 255, 0.1);
+  color: var(--accent-light);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  border: 1px solid rgba(42, 127, 255, 0.2);
+  font-size: 14px;
+}
+
+.channel-card-button:hover {
+  background: rgba(42, 127, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* FOOTER */
+footer {
+  background: #000;
+  margin-top: 50px;
+  padding: 30px 15px 20px;
+  font-size: 14px;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+}
+
+.footer-grid {
+  max-width: 1500px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+.footer-grid h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--accent-light);
+}
+
+.footer-grid p {
+  opacity: 0.7;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: var(--transition);
+  font-size: 14px;
+  padding: 4px 0;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--card);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-icons a:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  max-width: 1500px;
+  margin: 30px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+/* Botão para mostrar info do player */
+.show-info-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 6;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.show-info-btn.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.show-info-btn:hover {
+  background: rgba(42, 127, 255, 0.8);
+  transform: scale(1.1);
+}
+
+/* Estilos para tablets e desktops */
+@media (min-width: 768px) {
+  header {
+    padding: 14px 30px;
+    flex-direction: row;
+  }
+  
+  nav {
+    gap: 25px;
+    font-size: 15px;
+  }
+  
+  .player-section, .channels-section, .other-channels {
+    padding: 0 30px;
+  }
+  
+  .player-info {
+    left: 20px;
+    right: auto;
+    max-width: 400px;
+  }
+  
+  .player-title {
+    font-size: 18px;
+  }
+  
+  .player-description {
+    font-size: 14px;
+  }
+  
+  .section-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .current-time {
+    align-self: center;
+  }
+  
+  .channels-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  .show-info-btn {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .player-section, .channels-section, .other-channels {
+    padding: 0 40px;
+  }
+  
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: 220px repeat(3, 1fr);
+  }
+  
+  .time-header, .time-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  
+  .time-header {
+    padding: 18px;
+    font-size: 14px;
+    color: var(--muted);
+    background: var(--bg-2);
+    border-right: 1px solid rgba(42, 127, 255, 0.1);
+  }
+  
+  .time-slot {
+    padding: 18px;
+    font-size: 14px;
+    color: var(--muted);
+    background: var(--bg-2);
+    border-right: 1px solid rgba(42, 127, 255, 0.1);
+    border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+  }
+  
+  .channel-cell {
+    border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+    border-right: 1px solid rgba(42, 127, 255, 0.1);
+  }
+  
+  .channel-programs {
+    display: contents;
+  }
+  
+  .program-cell {
+    padding: 18px;
+    border-right: 1px solid rgba(42, 127, 255, 0.1);
+    border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+    border-radius: 0;
+  }
+  
+  .program-cell.live-now {
+    border-left: 4px solid #e10600;
+  }
+  
+  .channel-cell.active::before {
+    width: 4px;
+    height: 100%;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  header {
+    padding: 14px 40px;
+  }
+  
+  .player-section, .channels-section, .other-channels {
+    padding: 0 40px;
+  }
+  
+  .player-info {
+    left: 30px;
+    bottom: 30px;
+    padding: 15px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo-container">
+    <img src="https://www.hatchwise.com/wp-content/uploads/2022/11/image-11.png" alt="Aurora TV Media Logo" class="logo-img">
+    <div class="logo-text">AURORA</div>
+  </a>
+  <nav>
+    <a href="index.html" class="nav-link">
+      <i class="fas fa-home"></i> Início
+    </a>
+    <a href="live.html" class="nav-link active">
+      <i class="fas fa-broadcast-tower"></i> Live
+    </a>
+    <div class="charts-tooltip">
+      <span class="nav-link">
+        <i class="fas fa-chart-line"></i> Charts
+      </span>
+      <div class="charts-card">
+        <p>Funcionalidade em desenvolvimento</p>
+        <div class="soon-badge">EM BREVE</div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- PLAYER SECTION -->
+<section class="player-section">
+  <div class="player-container">
+    <div class="player-wrapper">
+      <iframe 
+        id="playerFrame"
+        src="https://www.youtube.com/embed/V9vuCByb6js?autoplay=1&mute=1"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+      
+      <div class="player-info" id="playerInfo">
+        <div class="player-live-badge">
+          <i class="fas fa-circle"></i> TRANSMISSÃO AO VIVO
+        </div>
+        <div class="player-title" id="playerTitle">Aurora - Canal Principal</div>
+        <div class="player-description" id="playerDescription">Programação 24 horas - Notícias, Entretenimento e Esportes</div>
+      </div>
+      
+      <div class="show-info-btn" id="showInfoBtn">
+        <i class="fas fa-info"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHANNELS SECTION -->
+<section class="channels-section">
+  <div class="section-header">
+    <h2 class="section-title"><i class="fas fa-tv"></i> Programação em Destaque</h2>
+    <div class="current-time">
+      <i class="fas fa-clock"></i>
+      <span id="currentTime">Carregando...</span>
+    </div>
+  </div>
+  
+  <div class="schedule-grid">
+    <!-- Cabeçalho de horários (visível apenas desktop) -->
+    <div class="time-header">CANAL</div>
+    <div class="time-slot">21:00</div>
+    <div class="time-slot">21:30</div>
+    <div class="time-slot">22:00</div>
+    
+    <!-- Aurora Channel -->
+    <div class="channel-cell active" onclick="switchChannel('aurora')" id="auroraChannel">
+      <img src="https://www.hatchwise.com/wp-content/uploads/2022/11/image-11.png" alt="Aurora" class="channel-logo">
+      <div class="channel-info">
+        <div class="channel-name">Aurora</div>
+        <div class="channel-description">Canal Principal</div>
+      </div>
+    </div>
+    
+    <div class="channel-programs">
+      <div class="program-cell live-now" onclick="switchChannel('aurora')">
+        <div class="program-title">Jornal da Noite</div>
+        <div class="program-time"><i class="far fa-clock"></i> 20:00 - 22:00</div>
+        <div class="live-indicator"><i class="fas fa-circle"></i> AO VIVO</div>
+      </div>
+      <div class="program-cell" onclick="switchChannel('aurora')">
+        <div class="program-title">Documentário Especial</div>
+        <div class="program-time"><i class="far fa-clock"></i> 22:00 - 23:30</div>
+      </div>
+      <div class="program-cell" onclick="switchChannel('aurora')">
+        <div class="program-title">Cinema da Meia-Noite</div>
+        <div class="program-time"><i class="far fa-clock"></i> 23:30 - 01:30</div>
+      </div>
+    </div>
+    
+    <!-- Aurora Music Channel -->
+    <div class="channel-cell" onclick="switchChannel('music')" id="musicChannel">
+      <img src="https://static01.nyt.com/images/2023/08/08/opinion/05stockman-Top-Art/05stockman-Top-Art-articleLarge.jpg?quality=75&auto=webp&disable=upscale" alt="Aurora Music" class="channel-logo">
+      <div class="channel-info">
+        <div class="channel-name">Aurora Music</div>
+        <div class="channel-description">Canal de Música</div>
+      </div>
+    </div>
+    
+    <div class="channel-programs">
+      <div class="program-cell" onclick="switchChannel('music')">
+        <div class="program-title">Top 100 Global</div>
+        <div class="program-time"><i class="far fa-clock"></i> 20:00 - 21:30</div>
+      </div>
+      <div class="program-cell live-now" onclick="switchChannel('music')">
+        <div class="program-title">Live Session</div>
+        <div class="program-time"><i class="far fa-clock"></i> 21:30 - 23:00</div>
+        <div class="live-indicator"><i class="fas fa-circle"></i> AO VIVO</div>
+      </div>
+      <div class="program-cell" onclick="switchChannel('music')">
+        <div class="program-title">Clássicos do Rock</div>
+        <div class="program-time"><i class="far fa-clock"></i> 23:00 - 00:30</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OTHER CHANNELS SECTION -->
+<section class="other-channels">
+  <h2 class="section-title"><i class="fas fa-satellite-dish"></i> Nossos Canais</h2>
+  
+  <div class="channels-grid">
+    <div class="channel-card" onclick="switchChannel('aurora')">
+      <div class="channel-card-header">
+        <img src="https://www.hatchwise.com/wp-content/uploads/2022/11/image-11.png" alt="Aurora" class="channel-card-logo">
+        <div class="channel-card-info">
+          <div class="channel-card-name">Aurora</div>
+          <div class="channel-card-status">
+            <span class="live-indicator" style="margin-top: 0;"><i class="fas fa-circle"></i> AO VIVO</span>
+            <span>• Canal Principal</span>
+          </div>
+        </div>
+      </div>
+      <div class="channel-card-body">
+        <p class="channel-card-description">
+          O canal principal da Aurora TV Media com programação 24 horas incluindo notícias, entretenimento, esportes e documentários exclusivos.
+        </p>
+        <a href="javascript:void(0)" onclick="switchChannel('aurora')" class="channel-card-button">
+          <i class="fas fa-play"></i> Assistir Agora
+        </a>
+      </div>
+    </div>
+    
+    <div class="channel-card" onclick="switchChannel('music')">
+      <div class="channel-card-header">
+        <img src="https://static01.nyt.com/images/2023/08/08/opinion/05stockman-Top-Art/05stockman-Top-Art-articleLarge.jpg?quality=75&auto=webp&disable=upscale" alt="Aurora Music" class="channel-card-logo">
+        <div class="channel-card-info">
+          <div class="channel-card-name">Aurora Music</div>
+          <div class="channel-card-status">
+            <span class="live-indicator" style="margin-top: 0;"><i class="fas fa-circle"></i> AO VIVO</span>
+            <span>• Canal de Música</span>
+          </div>
+        </div>
+      </div>
+      <div class="channel-card-body">
+        <p class="channel-card-description">
+          Canal dedicado à música 24 horas por dia. Transmitindo os maiores sucessos, sessões ao vivo, clássicos e as novidades do mundo musical.
+        </p>
+        <a href="javascript:void(0)" onclick="switchChannel('music')" class="channel-card-button">
+          <i class="fas fa-play"></i> Assistir Agora
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Aurora TV Media</h4>
+      <p>Plataforma de streaming, notícias e entretenimento. Conteúdo exclusivo 24 horas por dia.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Links rápidos</h4>
+      <div class="footer-links">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="live.html"><i class="fas fa-broadcast-tower"></i> Live</a>
+        <a href="#"><i class="fas fa-question-circle"></i> Ajuda</a>
+        <a href="#"><i class="fas fa-envelope"></i> Contato</a>
+      </div>
+    </div>
+    <div>
+      <h4>Canais</h4>
+      <div class="footer-links">
+        <a href="javascript:void(0)" onclick="switchChannel('aurora')"><i class="fas fa-tv"></i> Aurora</a>
+        <a href="javascript:void(0)" onclick="switchChannel('music')"><i class="fas fa-music"></i> Aurora Music</a>
+        <a href="#"><i class="fas fa-newspaper"></i> Notícias</a>
+        <a href="#"><i class="fas fa-film"></i> Entretenimento</a>
+      </div>
+    </div>
+    <div>
+      <h4>Parceiros</h4>
+      <div class="footer-links">
+        <a href="https://x.com/SquadB2B" target="_blank"><i class="fab fa-twitter"></i> B2B RPG</a>
+        <a href="#"><i class="fas fa-handshake"></i> Parcerias</a>
+        <a href="#"><i class="fas fa-ad"></i> Publicidade</a>
+        <a href="#"><i class="fas fa-users"></i> Colaboradores</a>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    © 2026 Aurora TV Media. Todos os direitos reservados. Conteúdo sujeito a disponibilidade.
+  </div>
+</footer>
+
+<script>
+// Função para atualizar o horário atual
+function updateCurrentTime() {
+  const now = new Date();
+  const timeString = now.toLocaleTimeString('pt-BR', { 
+    hour: '2-digit', 
+    minute: '2-digit',
+    hour12: false 
+  });
+  document.getElementById('currentTime').textContent = timeString;
+}
+
+// Atualiza o horário a cada minuto
+updateCurrentTime();
+setInterval(updateCurrentTime, 60000);
+
+// Função para alternar entre os canais
+function switchChannel(channel) {
+  const playerFrame = document.getElementById('playerFrame');
+  const playerTitle = document.getElementById('playerTitle');
+  const playerDescription = document.getElementById('playerDescription');
+  const auroraChannel = document.getElementById('auroraChannel');
+  const musicChannel = document.getElementById('musicChannel');
+  
+  // Remove a classe active de todos os canais
+  document.querySelectorAll('.channel-cell').forEach(cell => {
+    cell.classList.remove('active');
+  });
+  
+  if (channel === 'aurora') {
+    playerFrame.src = 'https://www.youtube.com/embed/V9vuCByb6js?autoplay=1&mute=0';
+    playerTitle.textContent = 'Aurora - Canal Principal';
+    playerDescription.textContent = 'Programação 24 horas - Notícias, Entretenimento e Esportes';
+    auroraChannel.classList.add('active');
+    
+    // Mostra as informações do player por 3 segundos
+    showPlayerInfo();
+    
+    // Animação de destaque
+    auroraChannel.style.transform = 'scale(1.02)';
+    setTimeout(() => {
+      auroraChannel.style.transform = '';
+    }, 300);
+  } 
+  else if (channel === 'music') {
+    playerFrame.src = 'https://www.youtube.com/embed/36YnV9STBqc?autoplay=1&mute=0';
+    playerTitle.textContent = 'Aurora Music';
+    playerDescription.textContent = 'Canal de música 24 horas - Os maiores sucessos e sessões ao vivo';
+    musicChannel.classList.add('active');
+    
+    // Mostra as informações do player por 3 segundos
+    showPlayerInfo();
+    
+    // Animação de destaque
+    musicChannel.style.transform = 'scale(1.02)';
+    setTimeout(() => {
+      musicChannel.style.transform = '';
+    }, 300);
+  }
+  
+  // Rola suavemente para o player (apenas em mobile)
+  if (window.innerWidth < 768) {
+    document.querySelector('.player-section').scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+}
+
+// Função para mostrar as informações do player
+function showPlayerInfo() {
+  const playerInfo = document.getElementById('playerInfo');
+  const showInfoBtn = document.getElementById('showInfoBtn');
+  
+  // Mostra as informações
+  playerInfo.classList.remove('hidden');
+  showInfoBtn.classList.remove('visible');
+  
+  // Esconde após 3 segundos
+  setTimeout(() => {
+    playerInfo.classList.add('hidden');
+    
+    // Mostra o botão de info (apenas em mobile)
+    if (window.innerWidth < 768) {
+      showInfoBtn.classList.add('visible');
+    }
+  }, 3000);
+}
+
+// Configura os eventos de clique nos programas
+document.addEventListener('DOMContentLoaded', function() {
+  // Adiciona efeitos de hover nos cards de canal
+  const channelCards = document.querySelectorAll('.channel-card, .program-cell, .channel-cell');
+  
+  channelCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      if (window.innerWidth >= 768) {
+        this.style.transform = 'translateY(-5px)';
+      }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
+  });
+  
+  // Adiciona efeito de clique nos programas
+  const programCells = document.querySelectorAll('.program-cell');
+  
+  programCells.forEach(cell => {
+    cell.addEventListener('click', function() {
+      this.style.transform = 'scale(0.98)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 200);
+    });
+  });
+  
+  // Botão para mostrar informações do player
+  const showInfoBtn = document.getElementById('showInfoBtn');
+  showInfoBtn.addEventListener('click', function() {
+    showPlayerInfo();
+  });
+  
+  // Inicializa o player com o canal Aurora
+  switchChannel('aurora');
+  
+  // Configura a hora atual formatada
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  
+  // Atualiza os horários na grade para refletir o tempo atual (apenas em desktop)
+  if (window.innerWidth >= 1024) {
+    const timeSlots = document.querySelectorAll('.time-slot');
+    const nextHour = hours < 23 ? hours + 1 : 0;
+    const nextNextHour = hours < 22 ? hours + 2 : (hours === 22 ? 0 : 1);
+    
+    // Formata os horários
+    timeSlots[0].textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    timeSlots[1].textContent = `${nextHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    timeSlots[2].textContent = `${nextNextHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  }
+  
+  // Esconde as informações do player após 3 segundos (inicialmente)
+  setTimeout(() => {
+    const playerInfo = document.getElementById('playerInfo');
+    const showInfoBtn = document.getElementById('showInfoBtn');
+    
+    playerInfo.classList.add('hidden');
+    
+    // Mostra o botão de info (apenas em mobile)
+    if (window.innerWidth < 768) {
+      showInfoBtn.classList.add('visible');
+    }
+  }, 3000);
+  
+  // Detecta mudanças no tamanho da tela
+  window.addEventListener('resize', function() {
+    const playerInfo = document.getElementById('playerInfo');
+    const showInfoBtn = document.getElementById('showInfoBtn');
+    
+    // Em telas maiores, sempre mostra o botão de info
+    if (window.innerWidth >= 768) {
+      showInfoBtn.classList.remove('visible');
+    }
+    // Em telas menores, mostra o botão se as info estiverem escondidas
+    else if (playerInfo.classList.contains('hidden')) {
+      showInfoBtn.classList.add('visible');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
