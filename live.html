@@ -1147,7 +1147,7 @@ function switchChannel(channel) {
     playerDescription.textContent = 'Programação 24 horas - Notícias, Entretenimento e Esportes';
     auroraChannel.classList.add('active');
     
-    // Mostra as informações do player por 3 segundos
+    // Mostra as informações do player por 2 segundos
     showPlayerInfo();
     
     // Animação de destaque
@@ -1162,7 +1162,7 @@ function switchChannel(channel) {
     playerDescription.textContent = 'Canal de música 24 horas - Os maiores sucessos e sessões ao vivo';
     musicChannel.classList.add('active');
     
-    // Mostra as informações do player por 3 segundos
+    // Mostra as informações do player por 2 segundos
     showPlayerInfo();
     
     // Animação de destaque
@@ -1190,7 +1190,7 @@ function showPlayerInfo() {
   playerInfo.classList.remove('hidden');
   showInfoBtn.classList.remove('visible');
   
-  // Esconde após 3 segundos
+  // Esconde após 2 segundos
   setTimeout(() => {
     playerInfo.classList.add('hidden');
     
@@ -1198,7 +1198,7 @@ function showPlayerInfo() {
     if (window.innerWidth < 768) {
       showInfoBtn.classList.add('visible');
     }
-  }, 3000);
+  }, 2000); // 2000ms = 2 segundos
 }
 
 // Configura os eventos de clique nos programas
@@ -1256,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', function() {
     timeSlots[2].textContent = `${nextNextHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   }
   
-  // Esconde as informações do player após 3 segundos (inicialmente)
+  // Esconde as informações do player após 2 segundos (inicialmente)
   setTimeout(() => {
     const playerInfo = document.getElementById('playerInfo');
     const showInfoBtn = document.getElementById('showInfoBtn');
@@ -1267,7 +1267,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.innerWidth < 768) {
       showInfoBtn.classList.add('visible');
     }
-  }, 3000);
+  }, 2000); // 2000ms = 2 segundos
   
   // Detecta mudanças no tamanho da tela
   window.addEventListener('resize', function() {
