@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aurora TV Media - Charts</title>
+
+<!-- Fonte Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --bg: #0b0d10;
+  --bg-2: #12151c;
+  --card: #1a1e27;
+  --card-hover: #222835;
+  --text: #ffffff;
+  --muted: #a0a4b8;
+  --accent: #2a7fff;
+  --accent-light: #4d95ff;
+  --gradient: linear-gradient(135deg, #2a7fff 0%, #6a11cb 100%);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --gold: #FFD700;
+  --silver: #C0C0C0;
+  --bronze: #CD7F32;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: var(--bg);
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* HEADER */
+header {
+  background: rgba(0, 0, 0, 0.95);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(42, 127, 255, 0.1);
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+  filter: brightness(1.2);
+  transition: var(--transition);
+}
+
+.logo-container:hover .logo-img {
+  transform: scale(1.05);
+}
+
+.logo-text {
+  font-weight: 900;
+  font-size: 22px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-link {
+  opacity: 0.85;
+  cursor: pointer;
+  position: relative;
+  padding: 8px 0;
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* HERO SECTION */
+.hero-charts {
+  max-width: 1500px;
+  margin: 20px auto 0;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-charts-box {
+  position: relative;
+  padding: 25px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(42, 127, 255, 0.1) 0%, rgba(106, 17, 203, 0.1) 100%);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 1px solid rgba(42, 127, 255, 0.2);
+}
+
+.hero-charts-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-charts h1 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-charts p {
+  opacity: 0.9;
+  font-size: 14px;
+  margin-bottom: 15px;
+  line-height: 1.4;
+  max-width: 600px;
+}
+
+.charts-period {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.period-btn {
+  background: rgba(42, 127, 255, 0.1);
+  color: var(--accent-light);
+  border: 1px solid rgba(42, 127, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.period-btn:hover {
+  background: rgba(42, 127, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.period-btn.active {
+  background: var(--gradient);
+  color: white;
+  border-color: transparent;
+}
+
+/* CHARTS SECTION */
+.charts-section {
+  max-width: 1500px;
+  margin: 30px auto;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title i {
+  color: var(--accent);
+}
+
+.last-updated {
+  font-size: 13px;
+  color: var(--muted);
+  background: var(--card);
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+}
+
+/* CHARTS GRID */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.chart-item {
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid rgba(42, 127, 255, 0.1);
+  animation: cardAppear 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chart-item:hover {
+  transform: translateY(-5px);
+  background: var(--card-hover);
+  box-shadow: var(--shadow);
+  border-color: rgba(42, 127, 255, 0.3);
+}
+
+.chart-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.chart-item:hover::before {
+  transform: scaleX(1);
+}
+
+.chart-rank {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 18px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.chart-rank-1 {
+  background: linear-gradient(135deg, var(--gold) 0%, #FFEC8B 100%);
+  color: #000;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.chart-rank-2 {
+  background: linear-gradient(135deg, var(--silver) 0%, #E8E8E8 100%);
+  color: #000;
+  box-shadow: 0 0 15px rgba(192, 192, 192, 0.4);
+}
+
+.chart-rank-3 {
+  background: linear-gradient(135deg, var(--bronze) 0%, #E6B87A 100%);
+  color: #000;
+  box-shadow: 0 0 15px rgba(205, 127, 50, 0.4);
+}
+
+.chart-rank-4-15 {
+  background: rgba(42, 127, 255, 0.2);
+  color: var(--accent-light);
+  border: 1px solid rgba(42, 127, 255, 0.3);
+}
+
+.chart-content {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.chart-thumb {
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.chart-item:hover .chart-thumb {
+  transform: scale(1.05);
+}
+
+.chart-info {
+  flex: 1;
+}
+
+.chart-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.chart-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.chart-channel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.chart-views {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.chart-progress-container {
+  margin-top: 10px;
+}
+
+.chart-progress {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.chart-progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease-out;
+}
+
+.chart-progress-value {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-light);
+}
+
+.chart-trend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.trend-up {
+  color: #4CAF50;
+}
+
+.trend-down {
+  color: #F44336;
+}
+
+.trend-neutral {
+  color: var(--muted);
+}
+
+/* CHANNEL DISTRIBUTION */
+.distribution-section {
+  max-width: 1500px;
+  margin: 40px auto 30px;
+  padding: 0 15px;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.distribution-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.distribution-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 25px;
+  border: 1px solid rgba(42, 127, 255, 0.1);
+  transition: var(--transition);
+}
+
+.distribution-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: rgba(42, 127, 255, 0.3);
+}
+
+.distribution-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-light);
+}
+
+.distribution-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.distribution-item:last-child {
+  border-bottom: none;
+}
+
+.distribution-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.distribution-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #fff;
+  padding: 4px;
+}
+
+.distribution-count {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--accent-light);
+}
+
+/* FOOTER */
+footer {
+  background: #000;
+  margin-top: 50px;
+  padding: 30px 15px 20px;
+  font-size: 14px;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+}
+
+.footer-grid {
+  max-width: 1500px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+.footer-grid h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--accent-light);
+}
+
+.footer-grid p {
+  opacity: 0.7;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: var(--transition);
+  font-size: 14px;
+  padding: 4px 0;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--card);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-icons a:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  max-width: 1500px;
+  margin: 30px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+/* MEDAL ICONS */
+.medal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+}
+
+/* Estilos para tablets */
+@media (min-width: 768px) {
+  header {
+    padding: 14px 30px;
+    flex-direction: row;
+  }
+  
+  nav {
+    gap: 25px;
+    font-size: 15px;
+  }
+  
+  .hero-charts, .charts-section, .distribution-section {
+    padding: 0 30px;
+  }
+  
+  .hero-charts h1 {
+    font-size: 32px;
+  }
+  
+  .hero-charts p {
+    font-size: 16px;
+  }
+  
+  .section-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .last-updated {
+    align-self: center;
+  }
+  
+  .chart-content {
+    padding: 25px;
+  }
+  
+  .chart-thumb {
+    width: 120px;
+    height: 80px;
+  }
+  
+  .chart-title {
+    font-size: 17px;
+  }
+  
+  .distribution-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+/* Estilos para desktop */
+@media (min-width: 1024px) {
+  header {
+    padding: 14px 40px;
+  }
+  
+  .hero-charts, .charts-section, .distribution-section {
+    padding: 0 40px;
+  }
+  
+  .hero-charts h1 {
+    font-size: 36px;
+  }
+  
+  .charts-grid {
+    gap: 20px;
+  }
+  
+  .chart-content {
+    padding: 30px;
+    gap: 25px;
+  }
+  
+  .chart-thumb {
+    width: 140px;
+    height: 90px;
+  }
+  
+  .distribution-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero-charts-box {
+    padding: 35px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo-container">
+    <img src="https://www.hatchwise.com/wp-content/uploads/2022/11/image-11.png" alt="Aurora TV Media Logo" class="logo-img">
+    <div class="logo-text">AURORA</div>
+  </a>
+  <nav>
+    <a href="index.html" class="nav-link">
+      <i class="fas fa-home"></i> Início
+    </a>
+    <a href="live.html" class="nav-link">
+      <i class="fas fa-broadcast-tower"></i> Live
+    </a>
+    <a href="charts.html" class="nav-link active">
+      <i class="fas fa-chart-line"></i> Charts
+    </a>
+  </nav>
+</header>
+
+<!-- HERO CHARTS -->
+<section class="hero-charts">
+  <div class="hero-charts-box">
+    <div class="hero-charts-content">
+      <h1>Top 15 Programas Mais Vistos</h1>
+      <p>Ranking atualizado com os programas mais populares da semana. Baseado em milhões de visualizações e engajamento dos espectadores.</p>
+      
+      <div class="charts-period">
+        <button class="period-btn active" data-period="week">Esta Semana</button>
+        <button class="period-btn" data-period="month">Este Mês</button>
+        <button class="period-btn" data-period="year">Este Ano</button>
+        <button class="period-btn" data-period="all-time">Todos os Tempos</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARTS SECTION -->
+<section class="charts-section">
+  <div class="section-header">
+    <h2 class="section-title"><i class="fas fa-trophy"></i> Ranking de Programas</h2>
+    <div class="last-updated">
+      <i class="fas fa-sync-alt"></i>
+      Atualizado há 2 horas
+    </div>
+  </div>
+  
+  <div class="charts-grid" id="chartsList">
+    <!-- Os programas serão inseridos aqui via JavaScript -->
+  </div>
+</section>
+
+<!-- CHANNEL DISTRIBUTION -->
+<section class="distribution-section">
+  <h2 class="section-title"><i class="fas fa-chart-pie"></i> Distribuição por Canal</h2>
+  
+  <div class="distribution-grid">
+    <div class="distribution-card">
+      <h3><i class="fas fa-tv"></i> Canais no Top 15</h3>
+      <div id="channelDistribution">
+        <!-- Distribuição será inserida via JavaScript -->
+      </div>
+    </div>
+    
+    <div class="distribution-card">
+      <h3><i class="fas fa-calendar-alt"></i> Lançamentos Recentes</h3>
+      <div id="recentReleases">
+        <!-- Lançamentos serão inseridos via JavaScript -->
+      </div>
+    </div>
+    
+    <div class="distribution-card">
+      <h3><i class="fas fa-fire"></i> Em Ascensão</h3>
+      <div id="trendingNow">
+        <!-- Em ascensão será inserido via JavaScript -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Aurora TV Media</h4>
+      <p>Plataforma de streaming, notícias e entretenimento. Conteúdo exclusivo 24 horas por dia.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Links rápidos</h4>
+      <div class="footer-links">
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="live.html"><i class="fas fa-broadcast-tower"></i> Live</a>
+        <a href="charts.html"><i class="fas fa-chart-line"></i> Charts</a>
+        <a href="#"><i class="fas fa-question-circle"></i> Ajuda</a>
+      </div>
+    </div>
+    <div>
+      <h4>Canais</h4>
+      <div class="footer-links">
+        <a href="live.html"><i class="fas fa-tv"></i> Aurora</a>
+        <a href="live.html"><i class="fas fa-music"></i> Aurora Music</a>
+        <a href="#"><i class="fas fa-newspaper"></i> Notícias</a>
+        <a href="#"><i class="fas fa-film"></i> Entretenimento</a>
+      </div>
+    </div>
+    <div>
+      <h4>Parceiros</h4>
+      <div class="footer-links">
+        <a href="https://x.com/SquadB2B" target="_blank"><i class="fab fa-twitter"></i> B2B RPG</a>
+        <a href="#"><i class="fas fa-handshake"></i> Parcerias</a>
+        <a href="#"><i class="fas fa-ad"></i> Publicidade</a>
+        <a href="#"><i class="fas fa-users"></i> Colaboradores</a>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    © 2026 Aurora TV Media. Todos os direitos reservados. Dados de visualização sujeitos a alterações.
+  </div>
+</footer>
+
+<script>
+// Dados dos programas (Top 15)
+const programsData = [
+  {
+    id: 1,
+    title: "Jornal da Noite",
+    channel: "Aurora",
+    views: 8.2,
+    trend: "up",
+    trendValue: 12,
+    image: "https://wp.cghnyc.com/media/NBC-w-Graphic_new2-1410x940.jpg",
+    category: "Notícias"
+  },
+  {
+    id: 2,
+    title: "Live Session Especial",
+    channel: "Aurora Music",
+    views: 7.8,
+    trend: "up",
+    trendValue: 24,
+    image: "https://static01.nyt.com/images/2023/08/08/opinion/05stockman-Top-Art/05stockman-Top-Art-articleLarge.jpg?quality=75&auto=webp&disable=upscale",
+    category: "Música"
+  },
+  {
+    id: 3,
+    title: "Documentário: Amazônia",
+    channel: "Aurora",
+    views: 6.5,
+    trend: "neutral",
+    trendValue: 0,
+    image: "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_16x9.jpg",
+    category: "Documentário"
+  },
+  {
+    id: 4,
+    title: "The Voice - Final",
+    channel: "Entretenimento",
+    views: 5.9,
+    trend: "down",
+    trendValue: 5,
+    image: "https://writerspace.com/wp-content/uploads/2014/10/The-Voice-Logo-Wallpaper.jpg",
+    category: "Talent Show"
+  },
+  {
+    id: 5,
+    title: "Cinema da Meia-Noite",
+    channel: "Aurora",
+    views: 5.3,
+    trend: "up",
+    trendValue: 8,
+    image: "https://variety.com/wp-content/uploads/2023/12/MCDBAHO_EC110.jpg",
+    category: "Filmes"
+  },
+  {
+    id: 6,
+    title: "Top 100 Global",
+    channel: "Aurora Music",
+    views: 4.8,
+    trend: "up",
+    trendValue: 15,
+    image: "https://www.billboard.com/wp-content/uploads/media/01-billboard-music-awards-2017-bb29-logo-billboard-1548.jpg",
+    category: "Música"
+  },
+  {
+    id: 7,
+    title: "Saturday Night Live",
+    channel: "Entretenimento",
+    views: 4.5,
+    trend: "up",
+    trendValue: 18,
+    image: "https://img.nbc.com/files/2025-10/snl_51-logo-1920x1080.jpg",
+    category: "Comédia"
+  },
+  {
+    id: 8,
+    title: "Notícias da Manhã",
+    channel: "Aurora",
+    views: 4.2,
+    trend: "neutral",
+    trendValue: 0,
+    image: "https://yt3.googleusercontent.com/ytc/AIdro_lnggXxbPuQ-eqqJIyjT2pM0DBvtlHV0iBxtW0MWNzaqVnZ=s900-c-k-c0x00ffffff-no-rj",
+    category: "Notícias"
+  },
+  {
+    id: 9,
+    title: "Clássicos do Rock",
+    channel: "Aurora Music",
+    views: 3.9,
+    trend: "down",
+    trendValue: 3,
+    image: "https://www.udiscovermusic.com/wp-content/uploads/2019/05/The-Beatles-Abbey-Road-album-cover-web-optimised-820.jpg",
+    category: "Música"
+  },
+  {
+    id: 10,
+    title: "Esportes em Foco",
+    channel: "Aurora",
+    views: 3.6,
+    trend: "up",
+    trendValue: 22,
+    image: "https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg",
+    category: "Esportes"
+  },
+  {
+    id: 11,
+    title: "Talk Show Aurora",
+    channel: "Entretenimento",
+    views: 3.3,
+    trend: "up",
+    trendValue: 9,
+    image: "https://www.tvinsider.com/wp-content/uploads/2021/09/the-tonight-show-starring-jimmy-fallon-1014x570.jpg",
+    category: "Entretenimento"
+  },
+  {
+    id: 12,
+    title: "Jazz Nights",
+    channel: "Aurora Music",
+    views: 3.1,
+    trend: "neutral",
+    trendValue: 0,
+    image: "https://www.jazzradio.fr/media/cache/radio_medium_cover/uploads/radios/bebop-5f560c7c7d8d0884530938.jpg",
+    category: "Música"
+  },
+  {
+    id: 13,
+    title: "Documentário: Espaço",
+    channel: "Aurora",
+    views: 2.9,
+    trend: "up",
+    trendValue: 11,
+    image: "https://www.space.com/wp-content/uploads/2023/06/planet-earth-from-space.jpg",
+    category: "Documentário"
+  },
+  {
+    id: 14,
+    title: "Novelas Clássicas",
+    channel: "Entretenimento",
+    views: 2.7,
+    trend: "down",
+    trendValue: 7,
+    image: "https://img.estadao.com.br/resources/jpg/5/0/1527537688705.jpg",
+    category: "Novela"
+  },
+  {
+    id: 15,
+    title: "Pop Hits",
+    channel: "Aurora Music",
+    views: 2.5,
+    trend: "up",
+    trendValue: 16,
+    image: "https://www.billboard.com/wp-content/uploads/2022/07/billboard-2022-bbma-winners-billboard-1548.jpg",
+    category: "Música"
+  }
+];
+
+// Dados de distribuição por canal
+const channelData = [
+  { name: "Aurora", count: 6, logo: "https://www.hatchwise.com/wp-content/uploads/2022/11/image-11.png" },
+  { name: "Aurora Music", count: 5, logo: "https://static01.nyt.com/images/2023/08/08/opinion/05stockman-Top-Art/05stockman-Top-Art-articleLarge.jpg?quality=75&auto=webp&disable=upscale" },
+  { name: "Entretenimento", count: 4, logo: "https://img.nbc.com/files/2025-10/snl_51-logo-1920x1080.jpg" }
+];
+
+// Lançamentos recentes
+const recentReleases = [
+  { name: "Jornal da Noite", date: "Hoje", channel: "Aurora" },
+  { name: "Live Session Especial", date: "2 dias", channel: "Aurora Music" },
+  { name: "Documentário: Espaço", date: "3 dias", channel: "Aurora" },
+  { name: "The Voice - Final", date: "5 dias", channel: "Entretenimento" }
+];
+
+// Em ascensão
+const trendingNow = [
+  { name: "Esportes em Foco", change: "+22%", channel: "Aurora" },
+  { name: "Live Session Especial", change: "+24%", channel: "Aurora Music" },
+  { name: "Saturday Night Live", change: "+18%", channel: "Entretenimento" },
+  { name: "Pop Hits", change: "+16%", channel: "Aurora Music" }
+];
+
+// Função para formatar números de visualização
+function formatViews(views) {
+  if (views >= 1) {
+    return views.toFixed(1) + 'M';
+  } else {
+    return (views * 1000).toFixed(0) + 'K';
+  }
+}
+
+// Função para renderizar os programas
+function renderPrograms() {
+  const chartsList = document.getElementById('chartsList');
+  chartsList.innerHTML = '';
+  
+  const maxViews = Math.max(...programsData.map(p => p.views));
+  
+  programsData.forEach((program, index) => {
+    const rankClass = index === 0 ? 'chart-rank-1' : 
+                     index === 1 ? 'chart-rank-2' : 
+                     index === 2 ? 'chart-rank-3' : 'chart-rank-4-15';
+    
+    const trendIcon = program.trend === 'up' ? 'fas fa-arrow-up' : 
+                     program.trend === 'down' ? 'fas fa-arrow-down' : 'fas fa-minus';
+    
+    const trendClass = program.trend === 'up' ? 'trend-up' : 
+                      program.trend === 'down' ? 'trend-down' : 'trend-neutral';
+    
+    const progressWidth = (program.views / maxViews) * 100;
+    
+    const programElement = document.createElement('div');
+    programElement.className = 'chart-item';
+    programElement.style.animationDelay = `${index * 0.05}s`;
+    
+    programElement.innerHTML = `
+      <div class="chart-rank ${rankClass}">${index + 1}</div>
+      <div class="chart-content">
+        <img src="${program.image}" alt="${program.title}" class="chart-thumb">
+        <div class="chart-info">
+          <div class="chart-title">${program.title}</div>
+          <div class="chart-meta">
+            <div class="chart-channel">
+              <i class="fas fa-tv"></i> ${program.channel}
+            </div>
+            <div class="chart-views">
+              <i class="fas fa-eye"></i> ${formatViews(program.views)} visualizações
+            </div>
+            <div class="chart-trend ${trendClass}">
+              <i class="${trendIcon}"></i>
+              ${program.trendValue > 0 ? program.trendValue + '%' : 'Estável'}
+            </div>
+          </div>
+          <div class="chart-progress-container">
+            <div class="chart-progress">
+              <div class="chart-progress-bar" style="width: ${progressWidth}%; background: var(--gradient);"></div>
+              <div class="chart-progress-value">${formatViews(program.views)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    chartsList.appendChild(programElement);
+  });
+}
+
+// Função para renderizar distribuição por canal
+function renderChannelDistribution() {
+  const channelDistribution = document.getElementById('channelDistribution');
+  channelDistribution.innerHTML = '';
+  
+  channelData.forEach(channel => {
+    const channelElement = document.createElement('div');
+    channelElement.className = 'distribution-item';
+    
+    channelElement.innerHTML = `
+      <div class="distribution-name">
+        <img src="${channel.logo}" alt="${channel.name}" class="distribution-logo">
+        <span>${channel.name}</span>
+      </div>
+      <div class="distribution-count">${channel.count} programas</div>
+    `;
+    
+    channelDistribution.appendChild(channelElement);
+  });
+}
+
+// Função para renderizar lançamentos recentes
+function renderRecentReleases() {
+  const recentReleasesContainer = document.getElementById('recentReleases');
+  recentReleasesContainer.innerHTML = '';
+  
+  recentReleases.forEach(release => {
+    const releaseElement = document.createElement('div');
+    releaseElement.className = 'distribution-item';
+    
+    releaseElement.innerHTML = `
+      <div class="distribution-name">
+        <i class="fas fa-play-circle"></i>
+        <span>${release.name}</span>
+      </div>
+      <div class="distribution-count">${release.date}</div>
+    `;
+    
+    recentReleasesContainer.appendChild(releaseElement);
+  });
+}
+
+// Função para renderizar em ascensão
+function renderTrendingNow() {
+  const trendingNowContainer = document.getElementById('trendingNow');
+  trendingNowContainer.innerHTML = '';
+  
+  trendingNow.forEach(trend => {
+    const trendElement = document.createElement('div');
+    trendElement.className = 'distribution-item';
+    
+    const isPositive = trend.change.includes('+');
+    const trendClass = isPositive ? 'trend-up' : 'trend-down';
+    
+    trendElement.innerHTML = `
+      <div class="distribution-name">
+        <i class="fas ${isPositive ? 'fa-fire' : 'fa-chart-line'}"></i>
+        <span>${trend.name}</span>
+      </div>
+      <div class="distribution-count ${trendClass}">${trend.change}</div>
+    `;
+    
+    trendingNowContainer.appendChild(trendElement);
+  });
+}
+
+// Função para atualizar dados por período
+function updateDataByPeriod(period) {
+  // Em uma aplicação real, aqui faríamos uma requisição para obter dados do período selecionado
+  // Por enquanto, apenas simularemos uma atualização visual
+  
+  const periodBtns = document.querySelectorAll('.period-btn');
+  periodBtns.forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.getAttribute('data-period') === period) {
+      btn.classList.add('active');
+    }
+  });
+  
+  // Atualizar texto de "Última atualização"
+  const lastUpdated = document.querySelector('.last-updated span');
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  
+  // Simular uma pequena alteração nos dados para mostrar que algo mudou
+  programsData.forEach((program, index) => {
+    // Apenas para demonstração: alterar ligeiramente as visualizações
+    const randomChange = (Math.random() * 0.2 - 0.1); // entre -0.1 e +0.1
+    program.views = Math.max(0.5, program.views + randomChange);
+    
+    // Alterar tendência aleatoriamente (apenas para demonstração)
+    if (Math.random() > 0.5) {
+      program.trend = Math.random() > 0.5 ? 'up' : 'down';
+      program.trendValue = Math.floor(Math.random() * 25) + 1;
+    }
+  });
+  
+  // Reordenar por visualizações
+  programsData.sort((a, b) => b.views - a.views);
+  
+  // Atualizar números de posição
+  programsData.forEach((program, index) => {
+    program.id = index + 1;
+  });
+  
+  // Re-renderizar
+  renderPrograms();
+  
+  // Atualizar texto de última atualização
+  lastUpdated.textContent = `Atualizado às ${hours}:${minutes}`;
+}
+
+// Inicialização da página
+document.addEventListener('DOMContentLoaded', function() {
+  // Renderizar todos os componentes
+  renderPrograms();
+  renderChannelDistribution();
+  renderRecentReleases();
+  renderTrendingNow();
+  
+  // Configurar eventos dos botões de período
+  const periodBtns = document.querySelectorAll('.period-btn');
+  periodBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const period = this.getAttribute('data-period');
+      updateDataByPeriod(period);
+    });
+  });
+  
+  // Adicionar efeitos de hover aos cards
+  const chartItems = document.querySelectorAll('.chart-item');
+  chartItems.forEach(item => {
+    item.addEventListener('mouseenter', function() {
+      if (window.innerWidth >= 768) {
+        this.style.transform = 'translateY(-5px)';
+      }
+    });
+    
+    item.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
+  });
+  
+  // Configurar a hora atual para o texto de atualização
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const lastUpdatedSpan = document.querySelector('.last-updated span');
+  if (lastUpdatedSpan) {
+    lastUpdatedSpan.textContent = `Atualizado às ${hours}:${minutes}`;
+  }
+  
+  // Animar as barras de progresso após um pequeno delay
+  setTimeout(() => {
+    const progressBars = document.querySelectorAll('.chart-progress-bar');
+    progressBars.forEach(bar => {
+      const width = bar.style.width;
+      bar.style.width = '0';
+      setTimeout(() => {
+        bar.style.width = width;
+      }, 100);
+    });
+  }, 500);
+});
+</script>
+
+</body>
+</html>
